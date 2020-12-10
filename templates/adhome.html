@@ -1,0 +1,49 @@
+{%extends "base.html"%}
+{%block title%}
+<title>{{title}}</title>
+{%endblock title%}
+{%block content%}
+    <main class="page login-page">
+        {% with messages=get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for c,m in messages %}
+        <div class="alert alert-{{c}}" role="alert">
+            <a href="#" class="close" data-dismiss='alert' aria-label="close">&times;</a>
+            {{m}}
+        </div>
+
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <section class="clean-block clean-form dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">PROJECTS ASSIGNED</h2>
+                </div>
+                {%if projects | length > 0%}
+                <div class="table responsive">
+                    <table>
+                        <th>Project id</th>
+                        <th>Date Posted</th>
+                        <th>Deadline</th>
+                        <th>View</th>
+
+                        {%for project in projects%}
+                        <tr>
+                            <td>{{project[0]}}</td>
+                            <td>{{project[2]}}</td>
+                            <td>{{project[3]}}</td>                     
+                            <td><a href="{{url_for('viewproject',a=project[0],admin=project[1])}}" onclick="return confirmation();"><button class="btn btn-primary btn-sm">VIEW PROJECT</button></a></td>   
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                {%else%}
+                <div class="block-heading">
+                    <h2 >NO MORE PROJECTS TO DISPLAY</h2>
+                </div>
+                {%endif%}
+            </div>
+        </section>
+    </main>
+{%endblock content%}

@@ -1,0 +1,106 @@
+=========================================================AUTHOR_INFO==============================================
+NAME(SID) = sarvagya Meel.(18103006)
+MOBILE NO = 9815915807
+cse @ PEC,chandigarh,INDIA.
+=======================================================PROJECT_INFO===============================================
+=> THIS IS FILE FOR PostgreSql_scripts  for the project "manager+".
+=> Make a database by the name of "p1".
+=> Make four tables with name:
+	(1.)register
+	(2.)department
+	(3.)projec
+	(4.)users
+=>Execution of these table should be line wise as stated above otherwise their will be error.
+
+
+=============================================(1.)TABLE_register=========================================================
+-- Table: public.register
+
+-- DROP TABLE public.register;
+
+CREATE TABLE public.register
+(
+    first_name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    last_name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    phone character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    email character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    typex character varying(10) COLLATE pg_catalog."default" NOT NULL,
+    password character varying(500) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT register_pkey PRIMARY KEY (email)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.register
+    OWNER to postgres;
+
+
+================================================(2.)TABLE_department=====================================================
+-- Table: public.department
+
+-- DROP TABLE public.department;
+
+CREATE TABLE public.department
+(
+    email character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    dept character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT email FOREIGN KEY (email)
+        REFERENCES public.register (email) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.department
+    OWNER to postgres;
+
+====================================================(3.)TABLE_projec=======================================================
+-- Table: public.projec
+
+-- DROP TABLE public.projec;
+
+CREATE TABLE public.projec
+(
+    pid bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
+    email character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    date date NOT NULL,
+    deadline date NOT NULL,
+    content character varying(500) COLLATE pg_catalog."default" NOT NULL,
+    name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT projec_pkey PRIMARY KEY (pid),
+    CONSTRAINT email FOREIGN KEY (email)
+        REFERENCES public.register (email) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.projec
+    OWNER to postgres;
+
+===================================================(4.)TABLE_users=========================================================
+-- Table: public.users
+
+-- DROP TABLE public.users;
+
+CREATE TABLE public.users
+(
+    pid bigint NOT NULL,
+    email character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT email FOREIGN KEY (email)
+        REFERENCES public.register (email) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT pid FOREIGN KEY (pid)
+        REFERENCES public.projec (pid) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.users
+    OWNER to postgres;
+======================================================END========================================================

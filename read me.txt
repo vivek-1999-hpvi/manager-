@@ -1,0 +1,2 @@
+cd C:\Users\Acer\Desktop\manger+
+python main.py

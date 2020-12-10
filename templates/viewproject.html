@@ -1,0 +1,79 @@
+{%extends "base.html"%}
+{%block title%}
+<title>{{title}}</title>
+{%endblock title%}
+
+
+{%block content%}
+    <main class="page login-page">
+         {% with messages=get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for c,m in messages %}
+            <div class="alert alert-{{c}}" role="alert">
+               <a href="#" class="close" data-dismiss='alert' aria-label="close">&times;</a>
+                {{m}}
+            </div>
+
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        <section class="clean-block clean-form dark">
+            <div class="container">
+                            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                <div class="block-heading">
+                    <h2 class="text-info">PROJECT</h2>
+                </div>
+                
+               
+
+                        <h2 style="text-align: center"> &nbsp; &nbsp; &nbsp;{{project[0]}}</h2>
+                    </div>
+                </div>
+            <br><br>
+
+                    <div class="table-responsive" style="text-align: center">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="color:blue;">Admin</th>
+                                    <th>{{project[1]}}</th>
+                                </tr>
+                           
+                                <tr>
+                                    <th style="color:blue;">Content</th>
+                                    <th>{{project[2]}}</th>
+                                </tr>
+                              <tr>
+                                    <th style="color:blue;">Date Posted</th>
+                                    <th>{{project[3]}}</th>
+                                  <tr>
+                                    <th style="color:blue;">Deadline</th>
+                                    <th>{{project[4]}}</th>
+                                </tr>
+                         
+                            </thead>
+                        </table>
+
+            </div>
+
+                 <script type="text/javascript">
+
+                function deletionconfirmation()
+                {
+                  var a=confirm("This will permanently delete your account and all its data , Are You sure you want to Continue?")
+                  return a;
+
+                }
+
+
+              </script>
+
+           
+</div>
+                    </div>
+        </section>
+    </main>
+   {%endblock content%}
+
